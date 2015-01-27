@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"Movie Title"; // todo: this should be replaced with the actual movie title
+    self.title = self.movieDetails[@"title"]; // todo: this should be replaced with the actual movie title
     
     self.titleLabel.text = self.movieDetails[@"title"];
     NSString *url = [self.movieDetails valueForKeyPath:@"posters.thumbnail"];
