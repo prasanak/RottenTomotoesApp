@@ -12,6 +12,7 @@
 @interface MoviesDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *movieImage;
+@property (weak, nonatomic) IBOutlet UILabel *movieSynopsis;
 
 @end
 
@@ -27,6 +28,7 @@
     NSString *url = [self.movieDetails valueForKeyPath:@"posters.thumbnail"];
     NSString *high_resolution_url = [url stringByReplacingOccurrencesOfString:@"_tmb" withString:@"_ori"];
     [self.movieImage setImageWithURL:[NSURL URLWithString:high_resolution_url]];
+    self.movieSynopsis.text = self.movieDetails[@"synopsis"];
     
 }
 
