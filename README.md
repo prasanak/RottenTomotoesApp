@@ -11,9 +11,11 @@ Stories completed:
 
 2. User can view movie details by tapping on a cell.
 
-Stories in progress now:
-1. User sees loading state while waiting for movies API.
+3. User sees loading state while waiting for movies API.
 
-2. User can pull to refresh the movie list.
+4. User can pull to refresh the movie list.
 
-3. Search movies
+Stories in progress
+
+1. Scrollable synopsis
+
