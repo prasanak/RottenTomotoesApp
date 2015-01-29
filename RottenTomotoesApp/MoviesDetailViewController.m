@@ -26,6 +26,10 @@
     
     self.titleLabel.text = self.movieDetails[@"title"];
     NSString *url = [self.movieDetails valueForKeyPath:@"posters.thumbnail"];
+
+    // set to low resolution image while high res is downoading
+    [self.movieImage setImageWithURL:[NSURL URLWithString:url]];
+    
     NSString *high_resolution_url = [url stringByReplacingOccurrencesOfString:@"_tmb" withString:@"_ori"];
     [self.movieImage setImageWithURL:[NSURL URLWithString:high_resolution_url]];
     self.movieSynopsis.text = self.movieDetails[@"synopsis"];

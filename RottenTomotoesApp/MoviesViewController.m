@@ -10,11 +10,15 @@
 #import "MovieTableViewCell.h"
 #import "MoviesDetailViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "SVProgressHUD.h"
 
-@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *moviesTableView;
 @property (strong, nonatomic) NSArray *movies;
+
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIView *networkErrorView;
 
 @end
 
@@ -26,22 +30,43 @@
     
     self.title = @"Movies";
     
+    self.networkErrorView.hidden = YES;
+    
     [self.moviesTableView registerNib:[UINib nibWithNibName:@"MovieTableViewCell" bundle:nil] forCellReuseIdentifier:@"MovieTableViewCell"];
     
     self.moviesTableView.dataSource = self;
     self.moviesTableView.delegate = self;
-   
+    
+    [self onRefresh];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.moviesTableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void) onRefresh {
+    
+    [SVProgressHUD show];
+    
     NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=8xsfk7msjscfcxv9xgu35gnk&limit=20&country=us"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         // runs when async response comes back
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
-        self.movies = responseDictionary[@"movies"];
-        
-        [self.moviesTableView reloadData];
-    }];
+        if (connectionError) {
+            self.networkErrorView.hidden = NO;
+        } else {
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            self.movies = responseDictionary[@"movies"];
+            [self.moviesTableView reloadData];
+            self.networkErrorView.hidden = YES;
 
+        }
+        [self.refreshControl endRefreshing];
+        [SVProgressHUD dismiss];
+    }];
+    
+    
     
 }
 

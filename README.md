@@ -3,7 +3,7 @@ Search and access movie info
 
 This apps enables users search and access movie info on iphones.
 
-Amount of time taken: 5 hrs. 
+Amount of time taken: 9 hrs. 
 
 Stories completed:
 
