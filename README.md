@@ -3,7 +3,7 @@ Search and access movie info
 
 This apps enables users search and access movie info on iphones.
 
-Amount of time taken: 9 hrs. 
+Amount of time taken: 10 hrs. 
 
 Stories completed:
 
@@ -15,7 +15,5 @@ Stories completed:
 
 4. User can pull to refresh the movie list.
 
-Stories in progress
-
-1. Scrollable synopsis
+5. Scrollable synopsis
 

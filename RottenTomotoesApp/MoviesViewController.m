@@ -112,9 +112,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     MoviesDetailViewController *vc = [[MoviesDetailViewController alloc] init];
-    
     [self.navigationController pushViewController:vc animated:YES];
-    
     vc.movieDetails = self.movies[indexPath.row];
 
 }

@@ -12,7 +12,10 @@
 @interface MoviesDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *movieImage;
+@property (weak, nonatomic) IBOutlet UIScrollView *movieDetailScrollView;
+@property (weak, nonatomic) IBOutlet UILabel *movieTitle;
 @property (weak, nonatomic) IBOutlet UILabel *movieSynopsis;
+@property (weak, nonatomic) IBOutlet UIView *synopsisView;
 
 @end
 
@@ -33,6 +36,12 @@
     NSString *high_resolution_url = [url stringByReplacingOccurrencesOfString:@"_tmb" withString:@"_ori"];
     [self.movieImage setImageWithURL:[NSURL URLWithString:high_resolution_url]];
     self.movieSynopsis.text = self.movieDetails[@"synopsis"];
+    self.movieTitle.text = self.movieDetails[@"title"];
+    
+    [self.movieSynopsis sizeToFit];
+    
+    float scrollHeight = 433 + self.movieSynopsis.frame.size.height;
+    [self.movieDetailScrollView setContentSize:CGSizeMake(320, scrollHeight)];
     
 }
 
